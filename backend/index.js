@@ -7,6 +7,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import mergedResolvers from './resolvers/index.js';
 import mergedTypeDefs from './typeDefs/index.js';
 import dotenv from 'dotenv';
+import { connectDB } from './db/connectDB.js';
 
 // Load environment variables
 dotenv.config();
@@ -42,5 +43,8 @@ app.use(
 
 // Modified server startup
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+
+// Start connection to MonogDB
+await connectDB();
 
 console.log(`🚀 Server ready at http://localhost:4000/`);
